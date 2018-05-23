@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+ <style>
+input:focus{
+	box-shadow: 0 0 5px #5BC0DE;
+    padding: 5px;
+    border: 2px solid #43D1AF;}
+		#th{
+			
+        background:#daf1e6;
+		}	
+		th{
+			
+      background : #EEF8FB;
+		}	
+	input[type="text"] {
+	border: 2px solid #5BC0DE ;
+	border-radius: 6px;
+	text-align:center;
+	background:white;
+	padding : 5px;
+	margin-top : 0px;
+	}	
+	.search{
+    width : 80%;		
+	border: 1px solid #EEF8FB;
+	border-radius : 5px;	
+    background:#EEF8FB;
+    margin : auto;
+    padding : 40px;
+    margin-bottom : 30px;
+    margin-top : 30px;
+	}	
+	h2{
+	border: 1px solid #dddddd;
+	border-radius : 5px;	
+    background:#4899B1;
+    padding : 30px;	
+    width : 100%;
+	
+	margin-top : -10px;
+	margin-left : 0px;
+    
+	}
+   
+  
+  .btns {
+   float : right;
+   margin-top : 35px;
+ 
+	
+}
+ </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+   
+     $.ajax(
+    {
+        type: "GET",
+        url: "d.json",
+        
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        
+        success: function (data) {
+             
+        var trHTML= '';
+                
+       
+         $.each(data, function (i, item) {
+            trHTML += '<tr><td class="fn">' + item.firstname + '</td><td class="ln">' + item.lastname + '</td><td>' + item.ID + '</td><td>' +'<button type="button" class="btn btn-info " onclick= $(this).parents("tr").remove();>Delete</button>' + '</td></tr>';
+        });
+        $('#tbl').append(trHTML);
+        
+    }
+        
+    });
+})
+</script>
+<script>
+$(document).ready(function(){
+    
+   $("#lns").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#s").on("click", function() {
+    $("#tbl tr").not(".header").filter(function() {
+      $(this).toggle($(this).find(".ln").text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+    $("#fns").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#s").on("click", function() {
+    $("#tbl tr").not(".header").filter(function() {
+      $(this).toggle($(this).find(".fn").text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+ $("#c").on("click", function() {
+    var row = $("#tbl").find("tr");
+     row.show();
+});
+	});
+  </script>
+
+
+
+
+
+
+
+</head>
+<body>
+<h2>Users</h2>
+<div class="search" >
+<label>Search<input type = "text"  id = "fns" name="search" placeholder = "search by first name"> </label>
+<input type = "text" name="search"  id = "lns" placeholder = "search by last name" >
+<div class="btns">
+<button  id="s" class="btn btn-info" >Search</button>
+<button  id="c" class="btn btn-secondary" >Clear</button>
+</div>
+ </div> 
+<div class="container">
+  
+              
+  <table id ="tbl" class="table table-bordered">
+    <thead class="text-info">
+      <tr class="header">
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>ID</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+   
+  </table>
+</div>
+
+
+</html>

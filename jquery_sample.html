@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<title>users</title>
+
+
+<style>
+table {
+    
+    margin : auto;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th{
+     
+ background:#daf1e6;
+}
+button:hover {
+                
+                background-color: #2EBC99;
+                
+                border-radius: 5px;
+                 cursor: pointer;
+                }
+button {
+    border-radius: 5px;
+    width:40%;
+    padding : 5px;
+    text-align:center;
+    background:#dddddd;
+    }   
+    
+   input:focus{
+    box-shadow: 0 0 5px #43D1AF;
+    padding: 5px;
+    border: 2px solid #43D1AF;}
+        #th{
+            
+        background:#daf1e6;
+        }       
+    input[type="text"] {
+    border: 2px solid #43D1AF;
+    border-radius: 6px;
+    text-align:center;
+    background:#dddddd;
+    padding : 5px;
+    }   
+        
+#s {
+    border-radius: 6px;
+    width:10%;
+    text-align:center;
+    background:#2EBC99;
+    padding : 7px;
+    margin-top : 30px;
+    margin-left : 400px;
+    
+    }       
+#c {
+    border-radius: 6px;
+    width:10%;
+    text-align:center;
+    background:#dddddd;
+    margin-top : 30px;
+    padding : 7px;
+    margin-left : 10px;
+    
+    display : inline-block;
+    }
+    
+    #s:hover,#c:hover{
+    
+    background-color: #43D1AF ; 
+    }   
+        
+    div{
+    width : 77%;        
+    border: 1px solid #dddddd;
+    border-radius : 5px;    
+    background:#daf1e6;
+    margin : auto;
+    padding : 20px;
+    margin-bottom : 40px;
+    margin-top : 30px;
+    }   
+    h2{
+    border: 1px solid #dddddd;
+    border-radius : 5px;    
+    background:#2EBC99;
+    padding : 30px; 
+    width : 100%;
+    margin-left : 50px; 
+    margin-top : -10px;
+    margin-left : -10px;
+    }
+</style>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+   
+     $.ajax(
+    {
+        type: "GET",
+        url: "d.json",
+        
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        
+        success: function (data) {
+             
+        var trHTML= '';
+                
+       
+         $.each(data, function (i, item) {
+            trHTML += '<tr><td class="fn">' + item.firstname + '</td><td class="ln">' + item.lastname + '</td><td>' + item.ID + '</td><td>' +'<button type="button"  onclick= $(this).parents("tr").remove(); >Delete</button>' + '</td></tr>';
+        });
+        $('#location').append(trHTML);
+        
+    }
+        
+    });
+})
+</script>
+
+
+</head>
+<body>
+<h2>Users</h2>
+<div id="div1">
+<label>Search<input type = "text"  id = "fns" name="search" placeholder = "search by first name"> </label>
+<input type = "text" name="search"  id = "lns" placeholder = "search by last name" >
+<input type="submit" id="s" value="Searh" >
+<input type="submit"  id="c" value="Clear">
+</div>
+<table id="location" border='1'>
+    <tr class="header">
+        <th >first name</th>
+         <th>last name</th>
+         <th>id</th>
+         <th>option</th>
+    </tr>
+</table>
+</body>
+
+
+<script>
+$(document).ready(function(){
+    
+   $("#lns").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#s").on("click", function() {
+    $("#location tr").not(".header").filter(function() {
+      $(this).toggle($(this).find(".ln").text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+$("#fns").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#s").on("click", function() {
+    $("#location tr").not(".header").filter(function() {
+      $(this).toggle($(this).find(".fn").text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+ $("#c").on("click", function() {
+    var row = $("#location").find("tr");
+     row.show();
+});
+$("button").on("click", function() {
+     $(this).parents("tr").remove();
+});
+    });
+  </script>
+
+
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#s{
+  
+   width : 70%;   
+  border: 1px solid #EEF8FB;
+  border-radius : 5px;  
+    background:#EEF8FB;
+    margin : auto;
+    padding : 40px;
+    margin-bottom : 30px;
+    margin-top : 45px;
+}
+input[type="text"] {
+  border: 2px solid #5BC0DE ;
+  border-radius: 6px;
+  text-align:center;
+  background:white;
+  padding : 5px;
+  margin-top : 0px;
+  
+  } 
+  th{
+      
+      background : #EEF8FB;
+    } 
+  input:focus{
+  box-shadow: 0 0 5px #5BC0DE;
+    padding: 5px;
+    }
+    h2{
+  border: 1px solid #dddddd;
+  border-radius : 5px;  
+    background:#4899B1;
+    padding : 30px; 
+    width : 100%;
+  
+  margin-top : -10px;
+  margin-left : 0px;
+    
+  }
+  #btns{
+    margin-top : 35px;
+    float: right;
+  }
+</style>
+<title>angular_sample1</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+<h2>Users</h2>
+<div ng-app="myApp" ng-controller="usersCtrl"> 
+<div id="s"> Search: <input type="text" class="search" ng-model="name.f" placeholder="Search by first name " />
+                     <input type="text" class="search" ng-model="name.l" placeholder="Search by lastname name " />
+  <div id="btns">                   
+<button class="btn btn-info" ng-click="searchFor={'firstname' : name.f, 'lastname': name.l}">Search</button>
+<button class="btn btn-secondary" ng-click="searchFor=undefined">Clear</button>
+</div>
+</div>
+<div class="container">
+
+<table id ="tbl" class="table table-bordered">
+
+<thead class="text-info">
+      <tr class="header">
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>ID</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    
+  <tr ng-repeat="x in names | filter:searchFor">
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+    <td>{{ x.ID }}</td>
+    <td><button class="btn btn-info" ng-click="removeRow(indexOf)";>Delete</button></td>
+  </tr>
+</table>
+
+</div>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('usersCtrl', function($scope, $http) {
+    $http.get("d.json")
+    .then(function (response) {$scope.names = response.data;});
+$scope.removeRow = function (idx) {
+  $scope.names.splice(idx, 1);
+};
+});
+</script>
+
+</body>
+</html>
