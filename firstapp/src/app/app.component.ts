@@ -16,29 +16,20 @@ export class AppComponent implements OnInit {
 
   }
   users= [];
-   
+   results = [];
   ngOnInit(){
    
     this.userviceService.getusers().subscribe(data => this.users = data);
 
-
   }
-
   
+  applyfilter ( arr, text, text2) {
    
-    
-  applyfilter( text, text2) {
-
-    if(!text && !text2){
-       
-      alert("please enter user name")
-
-    }
-    else if(text){
+     if(text){
   
       text = text.toLowerCase();
       
-      this.users.filter(item =>{
+      arr.filter(item =>{
        
       if(item.firstname.indexOf(text) !== -1){
        this.users =[];
@@ -63,7 +54,7 @@ export class AppComponent implements OnInit {
   }
     else if(text2){
       text2 = text2.toLowerCase(); 
-      this.users.filter(item =>{
+      arr.filter(item =>{
     if(item.lastname.indexOf(text2) !== -1) {
             this.users =[];
          this.users.push(item);
@@ -72,7 +63,7 @@ export class AppComponent implements OnInit {
              
     }
     else{
-      this.users.forEach(item=> {
+      arr.forEach(item=> {
        
     
         if(item.lastname.toLowerCase().indexOf(text2) == -1){
@@ -80,7 +71,7 @@ export class AppComponent implements OnInit {
         
         }
        
-   
+      
      });
     }
 
@@ -90,22 +81,27 @@ export class AppComponent implements OnInit {
     }
    
     
-    
   }
+  
   
 
   clear(){
 
-    this.userviceService.getusers().subscribe(data => this.users = data);
+   this.ngOnInit();
           
     }
   deleterow(index:number) {
          this.users.splice(index, 1);
-         
     
  }  
- 
+ /*deleteItem(id:number, index:number) {
+  this.userviceService.deleteUser(id).subscribe(response =>{
+       this.users.splice(index, 1);
+  });
+}*/
+
+}
     
-  }  
+  
 
 

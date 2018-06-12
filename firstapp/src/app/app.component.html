@@ -6,10 +6,10 @@
 
 
 <h2>users</h2>
-<div id="s"> Search: <input type="text" class="search" [(ngModel)]="text" placeholder="Search by first name " />
-  <input type="text" class="search" [(ngModel)]="text2" placeholder="Search by lastname name " />
+<div id="s"> Search: <input type="text" #input1 class="search" name="text"  placeholder="Search by first name " />
+  <input type="text" class="search" #input2 name="text2" placeholder="Search by lastname name " />
 <div id="btns">                   
-<button class="btn btn-info" (click)="applyfilter(text, text2)"  >Search</button>
+<button class="btn btn-info" (click)="applyfilter(users, input1.value, input2.value )"  >Search</button>
 <button class="btn btn-secondary" (click)="clear()">Clear</button>
 </div>
 </div>
@@ -29,7 +29,7 @@
 <td>{{user.firstname}}</td>
 <td>{{user.lastname}}</td>
 <td>{{user.ID}}</td>
-<td><button class="btn btn-info" (click)=deleterow(i)>Delete</button></td>
+<td><button class="btn btn-info" (click)="deleteitem(user._id, i)">Delete</button></td>
 </tr>
 </table>
 </div>
