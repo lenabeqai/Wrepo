@@ -38,32 +38,73 @@ let fixture: ComponentFixture<AppComponent>;
   describe('applyfilter', function() {
     
     it('should be instanciated', () => {
-      comp=fixture.componentInstance;
-      //expect(comp.applyfilter).toBeDefined();
+     let comp=fixture.componentInstance;
+      expect(comp.applyfilter).toBeDefined();
     });
-    /*it('filter', () => {
-      const items=[];
-      items.push({ firstname: "be", lastname: 'Hans', ID : 7, option:"" });
-     comp=fixture.componentInstance;
-      //expect(comp.applyfilter('','')).toBeUndefined;
-      expect(comp.applyfilter(items,'be','Hans')).toBeUndefined;
-    });*/
-    it('should return items if no field is given', () => {
-      comp=fixture.componentInstance;
+    
+    it('should return empty array if no field is given', () => {
+      let comp=fixture.componentInstance;
 
       let items
-      //items.push({ id: 1, name: 'Hans' });
+     
   
-      //const filtered = comp.applyfilter( items,null, null);
+      const filtered = comp.applyfilter( items,null, null);
   
-      //expect(filtered).toEqual(items);
+      expect(filtered).toEqual([]);
     });
-    it('should filter correctly', () => {
-    
+
+    it('should return empty array if no matches found ', () => {
+      let comp=fixture.componentInstance;
+
+      let items=[
+
+        {
+          "firstname" : "lena",
+          "lastname" : "beqai",
+                 "ID":"1"
+
+        },
+        {
+         "firstname" : "rola",
+         "lastname" : "tawalbeh",
+                "ID":"2"
+
+       }];
+     
   
-        
-      expect(comp.applyfilter(comp.users,'lena','')[0].firstname).toEqual('lena');
-      
+      const filtered = comp.applyfilter( items,'ahmad', '');
+  
+      expect(filtered).toEqual([]);
+    });
+
+
+
+    it('should filter correctly', () => {
+      let comp=fixture.componentInstance;
+         const data=[
+
+                   {
+                     "firstname" : "lena",
+                     "lastname" : "beqai",
+                            "ID":"1"
+
+                   },
+                   {
+                    "firstname" : "rola",
+                    "lastname" : "tawalbeh",
+                           "ID":"2"
+
+                  },
+                  {
+                    "firstname" : "sara",
+                    "lastname" : "alawneh",
+                           "ID":"3"
+
+                  }
+
+         ];
+       expect(comp.applyfilter(data, '','alawneh').length).toEqual(2);
+       expect(comp.applyfilter(data,'rola','tawalbeh')[0]).toEqual(data[0]);
     });
        
 
