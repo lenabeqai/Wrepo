@@ -103,8 +103,8 @@ let fixture: ComponentFixture<AppComponent>;
                   }
 
          ];
-       expect(comp.applyfilter(data, '','alawneh').length).toEqual(2);
-       expect(comp.applyfilter(data,'rola','tawalbeh')[0]).toEqual(data[0]);
+       expect(comp.applyfilter(data, '','alawneh').length).toEqual(1);
+       expect(comp.applyfilter(data,'rola','tawalbeh')[0]).toEqual(data[1]);
     });
        
 

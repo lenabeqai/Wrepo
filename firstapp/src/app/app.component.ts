@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     if(!text && !text2){
       
       this.users=[];
-      return [];
+      
       }
 
       else if(text){
