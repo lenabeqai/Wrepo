@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserviceService} from'./uservice.service';
 import {SearchByNamePipe} from './search-by-fname.pipe';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,15 +22,14 @@ export class AppComponent implements OnInit {
    
     this.userviceService.getusers().subscribe(Response => this.users = Response);
 
-
   }
    
  
   applyfilter( users,text: string,text2:string) {
     
     if(!text && !text2){
-      
       this.users=[];
+      return [];
       
       }
 
@@ -48,8 +48,6 @@ export class AppComponent implements OnInit {
           
           else{
             users.forEach(item=> {
-             
-          
               if(item.firstname.toLowerCase().indexOf(text) == -1){
                 this.users=[];
                
@@ -104,12 +102,10 @@ export class AppComponent implements OnInit {
      
   };
   clear(){
-    this.userviceService.getusers().subscribe(data => this.users = data);
-       return this.users   
-    }
- delete(index){
-
-  this.users.splice(index,1);
- }
+   this.userviceService.getusers().subscribe(data => this.users = data);
+  }
+ delete(arr,index){
  
+ return arr.splice(index,1);
+ }
   }

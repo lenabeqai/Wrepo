@@ -106,7 +106,43 @@ let fixture: ComponentFixture<AppComponent>;
        expect(comp.applyfilter(data, '','alawneh').length).toEqual(1);
        expect(comp.applyfilter(data,'rola','tawalbeh')[0]).toEqual(data[1]);
     });
-       
+  });
+    describe('deleteItem', function(){
+
+       it('should delete user correctly', ()=>{
+
+        let comp=fixture.componentInstance;
+        const data=[
+
+                  {
+                    "firstname" : "lena",
+                    "lastname" : "beqai",
+                           "ID":"1"
+
+                  },
+                  {
+                   "firstname" : "rola",
+                   "lastname" : "tawalbeh",
+                          "ID":"2"
+
+                 },
+                 {
+                   "firstname" : "sara",
+                   "lastname" : "alawneh",
+                          "ID":"3"
+
+                 }
+
+        ];
+      comp.delete(data,data.indexOf(data[0]))
+      
+      expect(data[0]).toBeUndefined;
+     
+      expect(data.length).toBe(2);       
+
+
+
+       });
 
   });
 
